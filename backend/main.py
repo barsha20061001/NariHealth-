@@ -23,12 +23,16 @@ breast_model_data = joblib.load("models/breast_cancer_model.pkl")
 pcos_model = joblib.load("../ml-models/pcos_model/model.pkl")
 breast_model = breast_model_data["model"]
 breast_features = breast_model_data["features"]
+anemia_model = joblib.load("models/anemia_model/model.pkl")
 
 class BreastCancerInput(BaseModel):
     values: list[float]
 
 class PCOSInput(BaseModel):
     values: List[float]
+
+class AnemiaInput(BaseModel):
+    values: List[float]    
 
 @app.get("/")
 def home():
@@ -122,3 +126,37 @@ async def predict_pcos_csv(file: UploadFile = File(...)):
         "confidence": confidence,
         "message": "CSV prediction completed. This is AI screening, not medical diagnosis."
     }
+
+@app.post("/predict/anemia")
+def predict_anemia(data: AnemiaInput):
+    input_data = np.array(data.values).reshape(1, -1)
+
+    prediction = anemia_model.predict(input_data)[0]
+    probability = anemia_model.predict_proba(input_data)[0]
+
+    confidence = round(float(max(probability)) * 100, 2)
+
+    return {
+        "prediction": "Anemia Detected" if prediction == 1 else "No Anemia",
+        "risk": "High Risk" if prediction == 1 else "Low Risk",
+        "confidence": confidence,
+        "message": "This is an AI screening result, not a medical diagnosis."
+    }   
+
+@app.post("/predict/anemia-csv")
+async def predict_anemia_csv(file: UploadFile = File(...)):
+    df = pd.read_csv(file.file, header=None)
+
+    values = df.iloc[0].values.reshape(1, -1)
+
+    prediction = anemia_model.predict(values)[0]
+    probability = anemia_model.predict_proba(values)[0]
+
+    confidence = round(float(max(probability)) * 100, 2)
+
+    return {
+        "prediction": "Anemia Detected" if prediction == 1 else "No Anemia",
+        "risk": "High Risk" if prediction == 1 else "Low Risk",
+        "confidence": confidence,
+        "message": "CSV prediction completed. This is AI screening, not medical diagnosis."
+    }     

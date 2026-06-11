@@ -33,6 +33,7 @@ import cervicalImg from "../assets/cervical-cancer.webp";
 import anemiaImg from "../assets/anemia.jpg";
 import menstrualImg from "../assets/menstrual.jpg";
 
+
 export default function Home() {
     const [showTop, setShowTop] = useState(false);
 const [showDashboard, setShowDashboard] = useState(false);
@@ -444,6 +445,19 @@ const Counter = ({ end, suffix = "" }) => {
       Learn More →
     </button>
   </Link>
+
+  ) : item.title === "Uterus Cancer" ? (
+  <Link to="/uterus-cancer-details">
+    <button className="mt-3 opacity-0 group-hover:opacity-100 transition duration-300 text-pink-300 font-semibold">
+      Learn More →
+    </button>
+  </Link>
+ ) : item.title === "Anemia" ? (
+  <Link to="/anemia-details">
+    <button className="mt-3 opacity-0 group-hover:opacity-100 transition duration-300 text-pink-300 font-semibold">
+      Learn More →
+    </button>
+  </Link> 
 
 ) : (
   <button className="mt-3 opacity-0 group-hover:opacity-100 transition duration-300 text-pink-300 font-semibold">
