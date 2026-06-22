@@ -16,6 +16,16 @@ import CervicalCancerCsvUpload from "./pages/CervicalCancerCsvUpload";
 import PeriodDetails from "./pages/PeriodDetails";
 import PeriodRisk from "./pages/PeriodRisk";
 import PeriodCsvUpload from "./pages/PeriodCsvUpload";
+import HotspotMap from "./pages/HotspotMap";
+import GovernmentDashboard from "./pages/GovernmentDashboard";
+import DoctorPortal from "./pages/DoctorPortal";
+import AshaPortal from "./pages/AshaPortal";
+import UploadReport from "./pages/UploadReport";
+import AIRiskEngine from "./pages/AIRiskEngine";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
+import Disclaimer from "./pages/Disclaimer";
+
 
 
 
@@ -36,6 +46,19 @@ function App() {
         <Route path="/anemia-csv-upload" element={<AnemiaCsvUpload />}/>
         <Route path="/period-details" element={<PeriodDetails />} />
         <Route path="/period-risk" element={<PeriodRisk />} />
+        <Route path="/hotspot-map" element={<HotspotMap />} />
+<Route path="/government-dashboard" element={<GovernmentDashboard />} />
+<Route path="/doctor-portal" element={<DoctorPortal />} />
+<Route path="/asha-portal" element={<AshaPortal />} />
+<Route path="/upload-report" element={<UploadReport />} />
+<Route
+  path="/ai-risk-engine"
+  element={<AIRiskEngine />}
+/>
+<Route path="/privacy" element={<PrivacyPolicy />} />
+<Route path="/terms" element={<Terms />} />
+<Route path="/disclaimer" element={<Disclaimer />} />
+
         
         <Route
   path="/cervical-cancer-predict"

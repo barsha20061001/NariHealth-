@@ -16,6 +16,7 @@ import {
   Moon,
   Sun,
   ArrowRight,
+   MapPin
 } from "lucide-react";
 
 
@@ -34,6 +35,8 @@ import anemiaImg from "../assets/anemia.jpg";
 import menstrualImg from "../assets/menstrual.jpg";
 
 
+
+
 export default function Home() {
     const [showTop, setShowTop] = useState(false);
 const [showDashboard, setShowDashboard] = useState(false);
@@ -49,14 +52,22 @@ useEffect(() => {
 }, []);
 
 const [darkMode, setDarkMode] = useState(false);
-  const features = [
-    ["AI Risk Engine", Brain, "PCOS, cancer, anemia and menstrual health risk prediction."],
-    ["Geo Hotspots", MapPinned, "Ward and district-wise high-risk area detection."],
-    ["Minister Dashboard", BarChart3, "Trends, alerts, resources and camp planning."],
-    ["ASHA Portal", Users, "Field-level data collection and follow-up tracking."],
-    ["Doctor Review", Stethoscope, "Verified medical feedback for safer decisions."],
-    ["Voice Reports", Mic, "Hindi, Bengali and English symptom reporting."],
-  ];
+const features = [
+ ["AI Risk Engine", Brain,
+"PCOS, cancer, anemia and menstrual health risk prediction.",
+"/ai-risk-engine"],
+
+  ["Geo Hotspots", MapPin, "Ward and district-wise high-risk area detection.", "/hotspot-map"],
+
+  ["Minister Dashboard", BarChart3, "Trends, alerts, resources and camp planning.", "/government-dashboard"],
+
+  ["ASHA Portal", Users, "Field-level data collection and follow-up tracking.", "/asha-portal"],
+
+  ["Doctor Review", Stethoscope, "Verified medical feedback for safer decisions.", "/doctor-portal"],
+
+  ["Voice Reports", Mic, "Hindi, Bengali and English symptom reporting.", "/upload-report"],
+];
+
 
   const diseases = [
   {
@@ -159,9 +170,9 @@ const Counter = ({ end, suffix = "" }) => {
     <div className="ml-auto mr-10 hidden md:flex items-center gap-3 bg-pink-50 border border-pink-600 px-4 py-2 rounded-full">
       {[
   ["Features", "#features"],
-  ["Dashboard", "#dashboard"],
-  ["Hotspots", "#hotspots"],
-  ["Reports", "#reports"],
+  ["Dashboard", "/government-dashboard"],
+  ["Hotspots", "/hotspot-map"],
+  ["Reports", "/government-dashboard"],
 ].map(([item, link]) => (
   <a
     key={item}
@@ -184,9 +195,12 @@ const Counter = ({ end, suffix = "" }) => {
   )}
 </button>
 
-    <button className="rounded-full bg-slate-950 text-white px-7 py-3 font-bold shadow-xl border-2 border-pink-500 hover:scale-105 transition">
-      Get Started
-    </button>
+    <a
+  href="#diseases"
+  className="bg-slate-950 text-white px-8 py-4 rounded-2xl border-2 border-pink-500 hover:bg-pink-600 transition-all duration-300"
+>
+  Get Started
+</a>
     </div>
   </div>
 </nav>
@@ -242,9 +256,12 @@ const Counter = ({ end, suffix = "" }) => {
     </p>
 
     <div className="mt-9 flex flex-wrap gap-4 justify-center items-center">
-      <button className="rounded-2xl bg-slate-950 text-white px-8 py-4 font-bold shadow-2xl border-2 border-pink-500 flex items-center gap-2 hover:scale-105 transition">
-        Start Screening <ArrowRight />
-      </button>
+      <Link
+  to="/ai-risk-engine"
+  className="inline-flex items-center gap-3 bg-slate-950 text-white px-10 py-4 rounded-2xl hover:bg-pink-600 transition-all duration-300 shadow-lg"
+>
+  Start Screening →
+</Link>
 
       <button
        onClick={() => setShowDashboard(true)}
@@ -378,9 +395,13 @@ const Counter = ({ end, suffix = "" }) => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map(([title, Icon, desc]) => (
-            <div
+          {features.map(([title, Icon, desc, route]) => (
+            
+            <Link
               key={title}
+               to={route}
+               >
+                <div
               className="group rounded-[2rem] bg-white p-7 shadow-xl border border-2 border-pink-600 hover:bg-slate-950 hover:text-white transition"
             >
               
@@ -390,11 +411,13 @@ const Counter = ({ end, suffix = "" }) => {
               <h3 className="text-xl font-black mb-3 text-black group-hover:text-white transition-colors duration-300">{title}</h3>
               <p className="text-slate-600  group-hover:text-amber-300 transition-colors duration-300 leading-relaxed">{desc}</p>
             </div>
+            </Link>
+          
           ))}
         </div>
       </section>
 
-      <section id="hotspots" className="max-w-7xl mx-auto px-6 py-20">
+      <section id="diseases" className="max-w-7xl mx-auto px-6 py-20">
   <div className="text-center mb-14">
     <h2 className="text-5xl font-black">
       Diseases We Monitor
@@ -503,14 +526,19 @@ const Counter = ({ end, suffix = "" }) => {
     </p>
 
     <div className="mt-8 flex justify-center gap-5">
-      <button href="/breast-cancer-predict"
-      className="bg-white text-slate-950 px-8 py-4 rounded-2xl font-bold">
-        Start Screening
-      </button>
+      <a
+  href="#diseases"
+  className="bg-white text-slate-900 px-10 py-4 rounded-2xl font-bold hover:scale-105 transition"
+>
+  Start Screening
+</a>
 
-      <button className="border border-white/40 px-8 py-4 rounded-2xl font-bold">
-        View Dashboard
-      </button>
+      <Link
+  to="/government-dashboard"
+  className="border border-white/30 text-white px-10 py-4 rounded-2xl font-bold hover:bg-white hover:text-slate-900 transition"
+>
+  View Dashboard
+</Link>
     </div>
   </div>
 </section>
@@ -531,22 +559,60 @@ const Counter = ({ end, suffix = "" }) => {
 
     <div>
       <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-      <ul className="space-y-3 text-white/60">
-        <li>Features</li>
-        <li>Dashboard</li>
-        <li>Hotspots</li>
-        <li>Reports</li>
-      </ul>
+      <div className="flex flex-col space-y-4">
+  <a href="#features" className="hover:text-pink-400 transition">
+    Features
+  </a>
+
+  <Link
+    to="/government-dashboard"
+    className="hover:text-pink-400 transition"
+  >
+    Dashboard
+  </Link>
+
+  <Link
+    to="/hotspot-map"
+    className="hover:text-pink-400 transition"
+  >
+    Hotspots
+  </Link>
+
+  <Link
+    to="/upload-report"
+    className="hover:text-pink-400 transition"
+  >
+    Reports
+  </Link>
+</div>
     </div>
 
     <div>
       <h3 className="font-bold text-lg mb-4">Resources</h3>
-      <ul className="space-y-3 text-white/60">
-        <li>Privacy Policy</li>
-        <li>Terms & Conditions</li>
-        <li>Medical Disclaimer</li>
-        <li>Contact</li>
-      </ul>
+      <div className="flex flex-col gap-4">
+  <Link
+    to="/privacy"
+    className="hover:text-pink-400 transition"
+  >
+    Privacy Policy
+  </Link>
+
+  <Link
+    to="/terms"
+    className="hover:text-pink-400 transition"
+  >
+    Terms & Conditions
+  </Link>
+
+  <Link
+    to="/disclaimer"
+    className="hover:text-pink-400 transition"
+  >
+    Medical Disclaimer
+  </Link>
+
+  
+</div>
     </div>
   </div>
 
