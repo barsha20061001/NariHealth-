@@ -244,7 +244,7 @@ Add homepage screenshot here.
 ### Clone Repository
 
 ```bash
-git clone https://github.com/barsha20061001/NariHealth.git
+git clone https://github.com/barsha20061001/NariHealth-Geo-AI
 cd NariHealth
 ```
 
